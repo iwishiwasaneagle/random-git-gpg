@@ -10,10 +10,12 @@ inputs:
 outputs:
   gpg_key_id:
     description: "The long form GPG key ID"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+    value: ${{ steps.gpg_key_id.outputs.gpg_key_id }}
 runs:
   using: "composite"
   steps:
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash 
     - run: run.sh ${{ inputs.email }} ${{ inputs.email }}
       shell: bash
     - id: gpg_key_id
