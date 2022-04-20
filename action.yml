@@ -4,7 +4,7 @@ author: Jan-Hendrik Ewers
 branding:
   icon: chevron-up
   color: yellow
-  
+
 inputs:
   email:
     description: 'Email associated with the user'
