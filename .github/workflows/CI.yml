@@ -29,19 +29,15 @@ jobs:
           else
             exit 1
           fi
-          
+
           if [[ "$(gpg --list-secret-keys)" == *"$USER"* ]]; then
             echo "PASS"
           else
             exit 1
           fi
-          
+
           if [[ "$(gpg --list-secret-keys)" == *"${{ steps.self.outputs.gpg_key_id }}"* ]]; then
             echo "PASS"
           else
             exit 1
           fi
-
-
-
-
