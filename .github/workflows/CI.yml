@@ -1,0 +1,47 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+env:
+  USER_NAME: John Smith
+  EMAIL: test@madeup.com
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Run action
+        id: self
+        uses: ./
+        with:
+          email: $EMAIL
+          name: $USER_NAME
+
+      - name: Validate
+        run: |
+          if [[ "$(gpg --list-secret-keys)" == *"$EMAIL"* ]]; then
+            echo "PASS"
+          else
+            exit 1
+          fi
+          
+          if [[ "$(gpg --list-secret-keys)" == *"$USER"* ]]; then
+            echo "PASS"
+          else
+            exit 1
+          fi
+          
+          if [[ "$(gpg --list-secret-keys)" == *"${{ steps.self.outputs.gpg_key_id }}"* ]]; then
+            echo "PASS"
+          else
+            exit 1
+          fi
+
+
+
+
