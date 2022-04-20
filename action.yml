@@ -1,0 +1,22 @@
+name: 'Git User Random GPG Key'
+description: 'Add a randomly generated GPG key to the git user'
+inputs:
+  email:
+    description: 'Email associated with the user'
+    required: true
+  name:
+    description: 'Name of the user'
+    required: true
+outputs:
+  gpg_key_id:
+    description: "The long form GPG key ID"
+    value: ${{ steps.random-number-generator.outputs.random-id }}
+runs:
+  using: "composite"
+  steps:
+    - run: run.sh ${{ inputs.email }} ${{ inputs.email }}
+      shell: bash
+    - id: gpg_key_id
+      run: echo "::set-output name=gpg_key_id::$(git config --global user.signingkey)"
+      shell: bash
+
