@@ -1,5 +1,10 @@
 name: 'Git User Random GPG Key'
 description: 'Add a randomly generated GPG key to the git user'
+author: Jan-Hendrik Ewers
+branding:
+  icon: chevron-up
+  color: yellow
+  
 inputs:
   email:
     description: 'Email associated with the user'
